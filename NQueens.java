@@ -7,42 +7,42 @@ public class NQueens {
   
   public static Stack<Integer> stack = new Stack<Integer> ();
 
-  private static boolean check(int spot) { //Check solution to be viable
+  private static boolean check(int NewSpot) { //Check solution to be viable
     for(int Queen = 0; Queen < stack.size(); Queen++)// iterate state to see if this spot can threaten other queens
       {
-        if(stack.get(Queen) == spot)
+        if(stack.get(Queen) == NewSpot)
           return false;
-        else if(stack.size() - stack.get(Queen) == Queen-spot)
+        else if(stack.size() - stack.get(Queen) == Queen - NewSpot)
           return false;
-        else if(stack.size() + stack.get(Queen)== Queen + spot)
+        else if(stack.size() + stack.get(Queen) == Queen + NewSpot)
           return false;
       }
     return true;
   }
   
-  public static int solve(int n) {
+  public static int solve(int number) { //Main solving algorithm. number is number of Queens
     int solution = 0;
     int nextQ = 0;
-    //boolean checkit = false;
-    boolean p = false;
+    
+    boolean Solved = false; //Keep trying to solve until this is true
     int x = 0;
 
-    while(!p){
-      for (x = nextQ; x<n; x++){
+    while(!Solved){
+      for (x = nextQ; x<number; x++){
     	  if(check(nextQ)){ //Check if solution is viable. If not, iterate.
     		  stack.push(nextQ);
     		  nextQ=0;
     		  break;
     	  }
     	  nextQ++;
-      } //closes for
-      if(x==n){
+      } //Closes for
+      if(x==number){
          if (stack.isEmpty())
-        	 p=true;
+        	 Solved=true;
          else
         	 nextQ = stack.pop() +1;
       }
-      if(stack.size() == n){
+      if(stack.size() == number){
          printSolution(stack);
          solution++;
          nextQ = stack.pop() + 1;
@@ -52,10 +52,10 @@ public class NQueens {
   }
   
  //Don't change below this
-  private static void printSolution(Stack<Integer> s) {
-    for (int i = 0; i < s.size(); i ++) {
-      for (int j = 0; j < s.size(); j ++) {
-        if (j == s.get(i))
+  private static void printSolution(Stack<Integer> stack) { //Print all chess boards where NQueens is a solution
+    for (int i = 0; i < stack.size(); i ++) {
+      for (int j = 0; j < stack.size(); j ++) {
+        if (j == stack.get(i))
           System.out.print("Q ");
         else
           System.out.print("* ");
@@ -67,10 +67,10 @@ public class NQueens {
   
   public static void main(String[] args) {
   
-  int number = 8; //Number of queens...change to be entered as an argument later
+  int number = 8; //Number of queens. Will be overwritten if given a parameter
   
   
-  if (args.length == 1) { //Check perimeters, if number of queens is entered as an argument
+  if (args.length == 1) { //Check perameter to see if # of queens was entered as an argument
     number = Integer.parseInt(args[0].trim());
     if (number < 1) {
       System.out.println("Incorrect parameter");
