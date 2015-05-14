@@ -20,11 +20,11 @@ public class NQueens {
     return true;
   }
   
-  public static int solve(int number) { //Main solving algorithm. number is number of Queens
+  public static int solve(int number) { //Main solving algorithm. number = number of Queens
     int solution = 0;
     int nextQ = 0;
     
-    boolean Solved = false; //Keep trying to solve until this is true
+    boolean Solved = false; //True if chess board is a complete solution
     int x = 0;
 
     while(!Solved){
@@ -35,7 +35,7 @@ public class NQueens {
     		  break;
     	  }
     	  nextQ++;
-      } //Closes for
+      } //Closes for loop
       if(x==number){
          if (stack.isEmpty())
         	 Solved=true;
@@ -52,7 +52,7 @@ public class NQueens {
   }
   
  //Don't change below this
-  private static void printSolution(Stack<Integer> stack) { //Print all chess boards where NQueens is a solution
+  private static void printSolution(Stack<Integer> stack) { //Print all chess board solutions
     for (int i = 0; i < stack.size(); i ++) {
       for (int j = 0; j < stack.size(); j ++) {
         if (j == stack.get(i))
