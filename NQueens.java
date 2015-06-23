@@ -10,39 +10,39 @@ public class NQueens {
   private static boolean check(int NewSpot) { //Check solution to be viable
     for(int Queen = 0; Queen < stack.size(); Queen++)// iterate state to see if this spot can threaten other queens
       {
-        if(stack.get(Queen) == NewSpot)
+        if(stack.get(Queen) == NewSpot)//Check vertical on chess board
           return false;
-        else if(stack.size() - stack.get(Queen) == Queen - NewSpot)
+        else if(stack.size() - stack.get(Queen) == Queen - NewSpot)//Check descending diagonal
           return false;
-        else if(stack.size() + stack.get(Queen) == Queen + NewSpot)
+        else if(stack.size() + stack.get(Queen) == Queen + NewSpot)//Check ascending diagonal
           return false;
       }
-    return true;
+    return true; //NewSpot is a viable solution
   }
   
   public static int solve(int number) { //Main solving algorithm. number = number of Queens
     int solution = 0;
     int nextQ = 0;
     
-    boolean Solved = false; //True if chess board is a complete solution
+    boolean Solved = false; //True if all solutions are found
     int x = 0;
 
     while(!Solved){
       for (x = nextQ; x<number; x++){
     	  if(check(nextQ)){ //Check if solution is viable. If not, iterate.
-    		  stack.push(nextQ);
+    		  stack.push(nextQ); //Queens are numbered 0-N in stack according to position in row
     		  nextQ=0;
     		  break;
     	  }
     	  nextQ++;
       } //Closes for loop
       if(x==number){
-         if (stack.isEmpty())
+         if (stack.isEmpty()) //This means all solutions have been found
         	 Solved=true;
-         else
+         else //Pop last found queen and search for more solutions
         	 nextQ = stack.pop() +1;
       }
-      if(stack.size() == number){
+      if(stack.size() == number){ //A solution has been found, needs to be printed
          printSolution(stack);
          solution++;
          nextQ = stack.pop() + 1;
